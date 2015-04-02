@@ -9,7 +9,7 @@ class Country extends Model {
 	public $timestamps = false;
 
 	public function brand() {
-		return $this->belongsTo('Brand', 'brand_id');
+		return $this->belongsTo('App\Brand', 'brand_id');
 	}
 
 }

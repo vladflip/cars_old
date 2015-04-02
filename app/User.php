@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $fillable = ['login', 'name'];
 
 	public function company() {
-		return $this->hasOne('Company');
+		return $this->hasOne('App\Company');
 	}
 
 	public function isAdmin() {

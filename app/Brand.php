@@ -9,7 +9,7 @@ class Brand extends Model {
 	public $timestamps = false;
 
 	public function country() {
-		return $this->hasOne('Country');
+		return $this->hasOne('App\Country');
 	}
 
 }

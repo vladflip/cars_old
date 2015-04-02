@@ -9,7 +9,7 @@ class Spec extends Model {
 	public $timestamps = false;
 
 	public function models() {
-		return $this->belongsToMany('Model', 'specs_models', 'spec_id', 'model_id');
+		return $this->belongsToMany('App\Model', 'specs_models', 'spec_id', 'model_id');
 	}
 
 }
