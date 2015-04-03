@@ -16,9 +16,9 @@ class CreateModelsTable extends Migration {
 			$t->string('icon');
 			$t->string('desc');
 
-			$t->integer('brand_id')->unsigned();
+			$t->integer('make_id')->unsigned();
 
-			$t->foreign('brand_id')->references('id')->on('brands')
+			$t->foreign('make_id')->references('id')->on('make')
 											->onDelete('cascade')
 											->onUpdate('no action');
 		});

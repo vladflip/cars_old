@@ -11,4 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', function(){
+	echo '<pre>';
+	var_dump(App\Make::with('models')->get()->toArray());
+});

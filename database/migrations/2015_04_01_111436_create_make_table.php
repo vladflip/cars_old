@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBrandsTable extends Migration {
+class CreateMakeTable extends Migration {
 
-	const TABLE_NAME = 'brands';
+	const TABLE_NAME = 'make';
 
 	public function up()
 	{

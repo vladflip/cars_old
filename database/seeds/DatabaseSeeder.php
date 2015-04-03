@@ -22,9 +22,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('CountrySeeder');
 
-		$this->call('BrandSeeder');
-
-		$this->call('ModelSeeder');
+		$this->call('MakeModelSeeder');
 
 		$this->call('CSMSeeder');
 	}
@@ -121,43 +119,46 @@ class CountrySeeder extends Seeder {
 
 }
 
-class BrandSeeder extends Seeder {
+class MakeModelSeeder extends Seeder {
 
 	public function run() {
 
-		$f = FF::get();
-
-		for($i=0; $i < 10; $i++){
-
-			App\Brand::create([
-				'name' => $f->cityPrefix,
-				'icon' => $f->imageUrl(),
-				'desc' => $f->paragraph(2),
-				'country_id' => $i+1
-			]);
-
-		}
-
-	}
-
-}
-
-class ModelSeeder extends Seeder {
-
-	public function run() {
+		$cars = Config::get('cars');
 
 		$f = FF::get();
 
-		for($i=0; $i < 10; $i++){
+		$id = 1;
 
-			$m = App\Model::create([
-				'name' => $f->cityPrefix,
-				'icon' => $f->imageUrl(),
-				'desc' => $f->paragraph(2),
-				'brand_id' => $i+1
-			]);
+		foreach (Config::get('cars') as $k => $v) {
+			foreach ($v as $key => $value) {
 
-			$m->spec()->attach($i+1);
+				if(is_array($value)){
+					foreach ($value as $ke => $val) {
+						foreach ($val as $k2 => $v2) {
+							if($k2 == 'title')
+								continue;
+
+							App\Model::create([
+								'name' => $v2,
+								'icon' => $f->imageUrl(),
+								'desc' => $f->paragraph(2),
+								'make_id' => $id
+							]);
+						}
+					}
+				} else {
+					if($key == 'value')
+						continue;
+					App\Make::create([
+						'name' => $value,
+						'icon' => $f->imageUrl(),
+						'desc' => $f->paragraph(2),
+						'country_id' => 2
+					]);
+				}
+
+			}
+			$id++;
 		}
 
 	}
