@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('MakeModelSeeder');
 
-		$this->call('CSMSeeder');
+		// $this->call('CSMSeeder');
 	}
 
 }
@@ -86,10 +86,13 @@ class SpecSeeder extends Seeder {
 
 		$f = FF::get();
 
-		for($i=0; $i < 10; $i++){
+		$arr = ['грузовики', 'автобусы', 'малый коммерческий траспорт', 
+		'спец. техника', 'прицепы / съемные кузова', 'сервисные услуги'];
+
+		for($i=0; $i < 6; $i++){
 
 			App\Spec::create([
-				'name' => $f->cityPrefix,
+				'name' => $arr[$i],
 				'icon' => $f->imageUrl(),
 				'desc' => $f->paragraph(2)
 			]);
@@ -138,12 +141,17 @@ class MakeModelSeeder extends Seeder {
 							if($k2 == 'title')
 								continue;
 
-							App\Model::create([
+							$m = App\Model::create([
 								'name' => $v2,
 								'icon' => $f->imageUrl(),
 								'desc' => $f->paragraph(2),
 								'make_id' => $id
 							]);
+
+							$m->spec()->attach(rand(1, 6));
+
+							if($id%10 == 0)
+								error_log($id);
 						}
 					}
 				} else {
@@ -165,21 +173,21 @@ class MakeModelSeeder extends Seeder {
 
 }
 
-class CSMSeeder extends Seeder {
+// class CSMSeeder extends Seeder {
 
-	public function run() {
+// 	public function run() {
 
-		$f = FF::get();
+// 		$f = FF::get();
 
-		for($i=0; $i < 10; $i++){
+// 		for($i=0; $i < 10; $i++){
 
-			$c = App\Company::find($i+1);
-			// $s = Spec::find($i+1);
-			// $m = $s->models->first();
+// 			$c = App\Company::find($i+1);
+// 			// $s = Spec::find($i+1);
+// 			// $m = $s->models->first();
 
-			$c->specs()->attach($i+1, ['model_id' => $i+1]);
-		}
+// 			$c->specs()->attach($i+1, ['model_id' => $i+1]);
+// 		}
 
-	}
+// 	}
 
-}
+// }

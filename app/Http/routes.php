@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function(){
-	echo 'hello';
+Route::get('/', 'HomeController@index');
+
+Route::get('get-{id}', function($id){
+	if($id == 'makes'){
+		$makes = App\Make::select('name')->get();
+		return response()->json($makes);
+	} elseif ($id == 'models') {
+		$models = App\Model::select('name')->get();
+		return response()->json($models);
+	}
 });
