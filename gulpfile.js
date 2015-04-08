@@ -1,16 +1,12 @@
-var elixir = require('laravel-elixir');
+var gulp = require('gulp'),
+	coffee = require('gulp-coffeeify'),
+	uglify = require('gulp-uglify'),
+	rename = require('gulp-rename');
 
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Less
- | file for our application, as well as publishing vendor resources.
- |
- */
-
-elixir(function(mix) {
-    mix.less('app.less');
+gulp.task('coffee', function(){
+	gulp.src('resources/assets/coffee/index.coffee')
+		.pipe(coffee())
+		.pipe(uglify())
+		.pipe(rename('script.js'))
+		.pipe(gulp.dest('public/js'))
 });
