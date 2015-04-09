@@ -18,7 +18,10 @@ Route::get('get-{id}', function($id){
 		$makes = App\Make::select('name')->get();
 		return response()->json($makes);
 	} elseif ($id == 'models') {
-		$models = App\Model::select('name')->get();
-		return response()->json($models);
+		$d = Input::get('make');
+	$id = App\Make::where('name', $d)->pluck('id');
+		$models = App\Model::select('name')->where('make_id', $id)->get();
+		// return response()->json($models);
+		return $models;
 	}
 });

@@ -32,10 +32,14 @@ module.exports = function() {
     List.prototype.refresh = function() {
       var self;
       self = this;
-      if (this.dep !== null) {
+      if (!(this.dep == null)) {
         return $.ajax({
-          url: "get-" + this.dep.id
+          url: "get-" + this.dep.id,
+          data: {
+            make: this.el.find('option:selected').val()
+          }
         }).done(function(data) {
+          console.log(data);
           return self.dep.set(data);
         });
       }
@@ -43,6 +47,7 @@ module.exports = function() {
 
     List.prototype.set = function(op) {
       var i, len, make, results;
+      this.el.empty();
       results = [];
       for (i = 0, len = op.length; i < len; i++) {
         make = op[i];
@@ -60,8 +65,8 @@ module.exports = function() {
 },{"jquery":1}],3:[function(require,module,exports){
 var form;
 
-form = require('./form.coffee');
+form = require('./form');
 
 form();
 
-},{"./form.coffee":2}]},{},[3]);
+},{"./form":2}]},{},[3]);

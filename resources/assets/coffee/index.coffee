@@ -1,3 +1,3 @@
-form = require './form.coffee'
+form = require './form'
 
 do form

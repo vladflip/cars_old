@@ -23,13 +23,16 @@ module.exports = ->
 
 		refresh: ->
 			self = this
-			unless @dep is null
+			unless not @dep?
 				$.ajax
-					url: "get-#{@dep.id}"
+					url: "get-#{@dep.id}",
+					data: make : @el.find('option:selected').val()
 				.done (data) ->
+					console.log data
 					self.dep.set data
 				
 		set: (op) ->
+			do @el.empty
 			for make in op
 				@el.append "<option value='#{make.name}'>#{make.name}</option>"
 
